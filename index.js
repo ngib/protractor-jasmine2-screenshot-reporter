@@ -70,7 +70,7 @@ function Jasmine2ScreenShotReporter(opts) {
                 '            });' +
                 '        });' +
                 '        jQuery("h4").each(function () {' +
-                '            $(this).prev().toggle();' +
+                '            $(this).next().toggle();' +
                 '            $(this).siblings().each(function () {' +
                 '                $(this).toggle();' +                
                 '            });' +
@@ -364,7 +364,7 @@ function Jasmine2ScreenShotReporter(opts) {
         var expanderHtml
 
         output += '<ul style="list-style-type:none">';
-        output += '<span>&#10134;</span><span>&#10133;</span><h4>' + suite.fullName + ' (' + getDuration(suite) + ' s) ' + markerHtml + '</h4>';
+        output += '<h4>' + markerHtml + ' ' + suite.fullName + ' (' + getDuration(suite) + ' s)</h4><span>&#10133;</span><span>&#10134;</span>';
         
         _.each(suite._specs, function(spec) {
             spec = specs[spec.id];
