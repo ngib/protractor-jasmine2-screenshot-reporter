@@ -54,9 +54,11 @@ function Jasmine2ScreenShotReporter(opts) {
                 '<style>' +
                     'body { font-family: Arial; }' +
                     'ul { list-style-position: inside; }' +
-                    '.passed { padding: 0 1em; color: green; }' +
-                    '.failed { padding: 0 1em; color: red; }' +
-                    '.pending { padding: 0 1em; color: orange; }' +
+                    '.passed { padding: 0 2em; color: green; }' +
+                    '.failed { padding: 0 2em; color: red; }' +
+                    '.pending { padding: 0 2em; color: orange; }' +
+                    '.passed-suite { padding: 0 1em; color: green; }' +
+                    '.failed-suite { padding: 0 1em; color: red; }' +
                 '</style>' +
                 '<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>' +
                 '<script>' + 
@@ -329,7 +331,23 @@ function Jasmine2ScreenShotReporter(opts) {
         duration: getDuration(spec),
       });
     }
-
+    
+    function suitePassed (suite) {
+        for(var i=0; i<suite._specs.length; i++) {
+            if(suite._specs[i].status === 'failed') {
+                return false;        
+            }
+        }
+        
+        for(var i=0; i<suite._suites.length; i++) {
+            if(!suitePassed(suite._suites[i])) {
+                return false;  
+            }
+        }
+        
+        return true;
+    }
+    
     // TODO: proper nesting -> no need for magic
     function printResults(suite) {
         var output = '';
@@ -340,8 +358,10 @@ function Jasmine2ScreenShotReporter(opts) {
 
         suite.isPrinted = true;
         
+        var markerHtml = suitePassed(suite) ? '<span class="passed-suite">&#10003;</span>' : '<span class="failed-suite">&#10007;</span>';
+
         output += '<ul style="list-style-type:none">';
-        output += '<h4>' + suite.fullName + ' (' + getDuration(suite) + ' s)</h4>';
+        output += '<h4>' + markerHtml + ' ' + suite.fullName + ' (' + getDuration(suite) + ' s)</h4>';
         
         _.each(suite._specs, function(spec) {
             spec = specs[spec.id];
