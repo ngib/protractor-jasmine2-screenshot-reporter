@@ -59,6 +59,15 @@ function Jasmine2ScreenShotReporter(opts) {
                     '.pending { padding: 0 1em; color: orange; }' +
                 '</style>' +
                 '<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>' +
+                '<script>' + 
+                '    jQuery(document).ready(function () {' +
+                '        jQuery("h4").click(function () {' +
+                '            $(this).siblings().each(function () {' +
+                '                $(this).toggle();' +                
+                '            });' +
+                '        });' +
+                '    });' +
+                '</script>' +
             '</head>' +
             '<body><%= report %></body>' +
         '</html>'
@@ -325,10 +334,10 @@ function Jasmine2ScreenShotReporter(opts) {
         }
 
         suite.isPrinted = true;
-
+        
         output += '<ul style="list-style-type:none">';
         output += '<h4>' + suite.fullName + ' (' + getDuration(suite) + ' s)</h4>';
-
+        
         _.each(suite._specs, function(spec) {
             spec = specs[spec.id];
             output += printSpec(spec);
