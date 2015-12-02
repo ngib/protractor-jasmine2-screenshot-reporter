@@ -54,6 +54,7 @@ function Jasmine2ScreenShotReporter(opts) {
                 '<style>' +
                     'body { font-family: Arial; }' +
                     'ul { list-style-position: inside; }' +
+                    'h4 { padding: 0 2em 0 0; display: inline; }' +
                     '.passed { padding: 0 2em; color: green; }' +
                     '.failed { padding: 0 2em; color: red; }' +
                     '.pending { padding: 0 2em; color: orange; }' +
@@ -64,12 +65,12 @@ function Jasmine2ScreenShotReporter(opts) {
                 '<script>' + 
                 '    jQuery(document).ready(function () {' +
                 '        jQuery("h4").click(function () {' +
-                '            $(this).nextAll().each(function () {' +
+                '            $(this).siblings().each(function () {' +
                 '                $(this).toggle();' +                
                 '            });' +
                 '        });' +
                 '        jQuery("h4").each(function () {' +
-                '            $(this).next().toggle();' +
+                '            $(this).prev().toggle();' +
                 '            $(this).siblings().each(function () {' +
                 '                $(this).toggle();' +                
                 '            });' +
@@ -363,7 +364,7 @@ function Jasmine2ScreenShotReporter(opts) {
         var expanderHtml
 
         output += '<ul style="list-style-type:none">';
-        output += '<h4>' + markerHtml + ' ' + suite.fullName + ' (' + getDuration(suite) + ' s)</h4><span>&#10133;</span><span>&#10134;</span>';
+        output += '<span>&#10134;</span><span>&#10133;</span><h4>' + suite.fullName + ' (' + getDuration(suite) + ' s) ' + markerHtml + '</h4>';
         
         _.each(suite._specs, function(spec) {
             spec = specs[spec.id];
