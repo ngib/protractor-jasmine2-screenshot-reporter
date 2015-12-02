@@ -66,6 +66,11 @@ function Jasmine2ScreenShotReporter(opts) {
                 '                $(this).toggle();' +                
                 '            });' +
                 '        });' +
+                '        jQuery("h4").each(function () {' +
+                '            $(this).siblings().each(function () {' +
+                '                $(this).toggle();' +                
+                '            });' +
+                '        });' +
                 '    });' +
                 '</script>' +
             '</head>' +
