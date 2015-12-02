@@ -58,6 +58,7 @@ function Jasmine2ScreenShotReporter(opts) {
                     '.failed { padding: 0 1em; color: red; }' +
                     '.pending { padding: 0 1em; color: orange; }' +
                 '</style>' +
+                '<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>' +
             '</head>' +
             '<body><%= report %></body>' +
         '</html>'
