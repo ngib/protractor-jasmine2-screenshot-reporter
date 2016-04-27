@@ -363,7 +363,7 @@ function Jasmine2ScreenShotReporter(opts) {
         var markerHtml = suitePassed(suite) ? '<span class="passed-suite">&#10003;</span>' : '<span class="failed-suite">&#10007;</span>';
         var expanderHtml
 
-        output += '<ul style="list-style-type:none">';
+        output += '<ul style="list-style-type:none;-webkit-padding-start: 15px;">';
         output += '<h4>' + markerHtml + ' ' + suite.fullName + ' (' + getDuration(suite) + ' s)</h4><span>&#10133;</span><span>&#10134;</span>';
         
         _.each(suite._specs, function(spec) {
